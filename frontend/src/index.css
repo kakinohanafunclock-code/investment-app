@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-page text-ink antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    /* 広い面に極薄のグラデーションで奥行き */
+    background-image: radial-gradient(1200px 600px at 100% -10%, #eef3ff 0%, rgba(238, 243, 255, 0) 55%),
+      linear-gradient(180deg, #ffffff 0%, #f7f8fa 240px);
+    background-attachment: fixed;
+  }
+  /* 数値は等幅数字で桁を揃える */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+  }
+  h1, h2, h3 {
+    @apply tracking-tightish;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl bg-card border border-line shadow-card transition duration-200 ease-smooth;
+  }
+  .card-hover {
+    @apply hover:shadow-card-hover hover:-translate-y-0.5;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold
+      transition duration-150 ease-smooth select-none disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-primary {
+    @apply btn bg-accent text-white shadow-soft hover:bg-accent-deep hover:-translate-y-0.5 hover:shadow-kpi;
+  }
+  .btn-ghost {
+    @apply btn bg-white text-ink-soft border border-line hover:border-accent/40 hover:text-accent hover:-translate-y-0.5;
+  }
+  .btn-subtle {
+    @apply btn bg-line-soft text-ink-soft hover:bg-line;
+  }
+  .input {
+    @apply w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-ink
+      placeholder:text-ink-faint outline-none transition
+      focus:border-accent focus:ring-4 focus:ring-accent/10;
+  }
+  .label {
+    @apply block text-xs font-semibold text-ink-muted mb-1.5;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold;
+  }
+  .nav-link {
+    @apply flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium text-ink-soft
+      transition duration-150 ease-smooth hover:bg-accent-soft hover:text-accent;
+  }
+  .nav-link-active {
+    @apply bg-accent text-white shadow-kpi hover:bg-accent hover:text-white;
+  }
+  .section-title {
+    @apply text-[15px] font-bold text-ink flex items-center gap-2;
+  }
+}
+
+/* アニメーション */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.skeleton {
+  @apply relative overflow-hidden bg-line-soft rounded-lg;
+}
+.skeleton::after {
+  content: '';
+  @apply absolute inset-0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  animation: shimmer 1.4s infinite;
+}
+
+/* Recharts のフォーカス枠を消す */
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #d7dae0;
+  border-radius: 999px;
+  border: 2px solid #f7f8fa;
+}

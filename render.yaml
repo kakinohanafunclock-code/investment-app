@@ -1,0 +1,42 @@
+# Render 用 Blueprint（単一 Web サービス＋永続ディスクで常時稼働）
+# 使い方: Render ダッシュボード → New → Blueprint → このリポジトリを選択
+services:
+  - type: web
+    name: asset-dashboard
+    runtime: node
+    plan: starter # 無料プランはスリープし cron が止まるため、有料 starter 以上を推奨
+    region: singapore
+    buildCommand: npm install && npm run build
+    startCommand: node backend/dist/index.js
+    healthCheckPath: /api/health
+    autoDeploy: true
+    disk:
+      name: data
+      mountPath: /data # SQLite をここに保存（再デプロイで消えない）
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+      - key: SERVE_STATIC
+        value: "true"
+      - key: ENABLE_SCHEDULER
+        value: "true"
+      - key: DB_PATH
+        value: /data/app.sqlite
+      - key: NEWS_CRON
+        value: 30 7 * * 1-5
+      - key: CRON_TZ
+        value: Asia/Tokyo
+      - key: TOKEN_TTL_SEC
+        value: "604800"
+      # 以下はダッシュボードで値を設定（sync:false はコミットしない秘密情報）
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true # Render が強固な値を自動生成
+      - key: SIGNUP_CODE
+        sync: false
+      - key: CLIENT_ORIGIN
+        sync: false # 同一オリジン配信なら自分の URL（例 https://asset-dashboard.onrender.com）

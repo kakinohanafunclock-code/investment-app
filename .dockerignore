@@ -1,0 +1,10 @@
+node_modules
+**/node_modules
+**/dist
+backend/data
+*.sqlite
+*.sqlite-*
+.git
+.env
+**/.env
+coverage

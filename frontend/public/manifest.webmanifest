@@ -1,0 +1,19 @@
+{
+  "name": "資産ダッシュボード | 投資情報エージェント",
+  "short_name": "資産ダッシュボード",
+  "description": "個人投資家向けの資産可視化と、ニュース自動収集・客観分析エージェント。",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F7F8FA",
+  "theme_color": "#2F6BFF",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

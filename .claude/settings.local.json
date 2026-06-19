@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --input-type=module -e \"import { DatabaseSync } from 'node:sqlite'; const db = new DatabaseSync\\(':memory:'\\); db.exec\\('CREATE TABLE t\\(a INTEGER\\)'\\); db.prepare\\('INSERT INTO t VALUES \\(?\\)'\\).run\\(42\\); console.log\\('OK', db.prepare\\('SELECT a FROM t'\\).get\\(\\)\\);\")",
+      "Bash(rm -rf node_modules backend/node_modules frontend/node_modules package-lock.json)",
+      "Bash(npm install *)",
+      "Bash(npx vitest *)",
+      "Bash(npx tsc *)",
+      "Bash(DB_PATH=\":memory:\" ENABLE_SCHEDULER=false PORT=4123 timeout 12 npx tsx src/index.ts)",
+      "Bash(curl -s http://localhost:4123/api/health)",
+      "Bash(curl -s http://localhost:4123/api/dashboard)",
+      "Bash(PORT=4000 ENABLE_SCHEDULER=false npx tsx src/index.ts)",
+      "Bash(curl -s http://localhost:4000/api/health)",
+      "Bash(curl -s \"http://localhost:4000/api/dashboard\")",
+      "Bash(npx vite *)",
+      "Bash(curl -s http://localhost:5173/)",
+      "Bash(curl -s http://localhost:5173/api/health)",
+      "mcp__Claude_Preview__preview_start",
+      "PowerShell($p = Get-NetTCPConnection -LocalPort 5173 -State Listen -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty OwningProcess; if \\($p\\) { Stop-Process -Id $p -Force; \"killed $p on 5173\" } else { \"nothing on 5173\" })",
+      "Bash(cd \"C:/Users/kakin/.claude/projects/C--Users-kakin-Desktop-FunClock-Project------/memory\" && if [ -f MEMORY.md ]; then cat MEMORY.md; else echo \"no MEMORY.md\"; fi)",
+      "Bash(xargs grep -l -i \"serviceWorker\\\\|manifest\\\\|workbox\")",
+      "Bash(curl -s -X POST http://localhost:4000/api/auth/register -H \"content-type: application/json\" -d '{\"email\":\"taro@example.com\",\"password\":\"password123\",\"name\":\"太郎\"}')",
+      "Bash(DB_PATH=\":memory:\" SERVE_STATIC=true ENABLE_SCHEDULER=false PORT=4567 JWT_SECRET=x node dist/index.js)",
+      "Bash(curl -s http://localhost:4567/api/health)",
+      "Bash(curl -s http://localhost:4567/)",
+      "Bash(curl -s http://localhost:4567/settings)",
+      "Bash(curl -s http://localhost:4567/manifest.webmanifest)"
+    ]
+  }
+}

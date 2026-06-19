@@ -206,8 +206,10 @@ Express が API と `frontend/dist`（PWA）の両方を配信します。`SERVE
 1. リポジトリを GitHub に push。
 2. Railway → **New Project → Deploy from GitHub repo** → このリポジトリ。`railway.json` により Dockerfile ビルドになります。
 3. **Variables** に環境変数を設定：`ANTHROPIC_API_KEY` / `JWT_SECRET`（長いランダム値） / `SIGNUP_CODE` / `CLIENT_ORIGIN`（公開 URL）。`SERVE_STATIC=true`・`DB_PATH=/data/app.sqlite`・`ENABLE_SCHEDULER=true` は Dockerfile に既定済み。
-4. **Volume** を追加し、マウントパスを `/data` に設定（Dockerfile の `VOLUME ["/data"]` に対応。**永続化されデプロイで消えません**）。
+4. **Volume** を追加し、**Mount path を `/data`** に設定（Railway は Dockerfile の `VOLUME` 命令に非対応のため、必ずダッシュボードの Volume 機能で作成します。`DB_PATH=/data/app.sqlite` がここを指すので**再デプロイしても SQLite は消えません**）。
 5. 生成された公開ドメインを開き、`/login` から登録。
+
+> 💡 **ビルドが「Could not find a declaration file for module 'express'」等で失敗する場合**：`NODE_ENV=production` により devDependencies（型定義・tsc）が入っていないのが原因です。本リポジトリでは Render は `npm install --include=dev`（`render.yaml`）、Railway は Dockerfile の `npm install --include=dev` で解決済みです。Render で Blueprint を使わず手動設定する場合は、Build Command を `npm install --include=dev && npm run build` にしてください。
 
 ### 構成 B：フロントとバックを分ける
 

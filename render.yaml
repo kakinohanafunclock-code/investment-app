@@ -6,7 +6,9 @@ services:
     runtime: node
     plan: starter # 無料プランはスリープし cron が止まるため、有料 starter 以上を推奨
     region: singapore
-    buildCommand: npm install && npm run build
+    # --include=dev は必須: Render は NODE_ENV=production のため、これが無いと
+    # devDependencies（@types/*・typescript 等）が入らずビルドが失敗する。
+    buildCommand: npm install --include=dev && npm run build
     startCommand: node backend/dist/index.js
     healthCheckPath: /api/health
     autoDeploy: true

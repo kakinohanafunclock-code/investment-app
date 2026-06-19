@@ -24,7 +24,8 @@
       "Bash(curl -s http://localhost:4567/api/health)",
       "Bash(curl -s http://localhost:4567/)",
       "Bash(curl -s http://localhost:4567/settings)",
-      "Bash(curl -s http://localhost:4567/manifest.webmanifest)"
+      "Bash(curl -s http://localhost:4567/manifest.webmanifest)",
+      "Bash(git push *)"
     ]
   }
 }
